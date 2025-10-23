@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8" />
+=======
+    <meta charset="UTF-R" />
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Sistem Parkir</title>
     <style>
@@ -95,7 +99,11 @@
             margin-bottom: 20px;
             border-radius: 5px;
             font-weight: 500;
+<<<<<<< HEAD
             display: none; 
+=======
+            display: none; /* Sembunyi secara default */
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
         }
         .message-success {
             background-color: #d4edda;
@@ -107,6 +115,11 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+<<<<<<< HEAD
+=======
+
+        /* Responsif untuk layar kecil */
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
@@ -156,7 +169,11 @@
                     </thead>
                     <tbody>
                         {% for ticket in tickets %}
+<<<<<<< HEAD
                         <tr data-ticket-id="{{ ticket.ticket_id }}">
+=======
+                        <tr>
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                             <td>{{ ticket.ticket_id }}</td>
                             <td>{{ ticket.plate_number }}</td>
                             <td>{{ ticket.slot_number }}</td>
@@ -164,7 +181,11 @@
                             <td>{{ ticket.current_cost_str }}</td>
                         </tr>
                         {% else %}
+<<<<<<< HEAD
                         <tr id="no-tickets-row">
+=======
+                        <tr>
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                             <td colspan="5" style="text-align: center;">Tidak ada mobil yang terparkir.</td>
                         </tr>
                         {% endfor %}
@@ -175,17 +196,29 @@
     </div>
 
     <script>
+<<<<<<< HEAD
+=======
+        // Fungsi untuk menampilkan pesan
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
         function showMessage(message, type = 'success') {
             const messageArea = document.getElementById('message-area');
             messageArea.textContent = message;
             messageArea.className = `message-area message-${type}`;
             messageArea.style.display = 'block';
 
+<<<<<<< HEAD
+=======
+            // Sembunyikan pesan setelah 5 detik
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
             setTimeout(() => {
                 messageArea.style.display = 'none';
             }, 5000);
         }
 
+<<<<<<< HEAD
+=======
+        // Fungsi untuk update info slot
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
         function updateSlotInfo() {
             fetch('/api/slots/available')
                 .then(response => response.json())
@@ -199,6 +232,7 @@
                 });
         }
         
+<<<<<<< HEAD
         function addTicketToTable(ticket) {
             const tableBody = document.getElementById('tickets-table').getElementsByTagName('tbody')[0];
             
@@ -240,17 +274,35 @@
 
             document.getElementById('checkin-form').addEventListener('submit', function(event) {
                 event.preventDefault(); 
+=======
+        // --- Event Listener untuk Form ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Panggil sekali saat halaman dimuat
+            updateSlotInfo();
+
+            // 1. Event Listener Form Check-In
+            document.getElementById('checkin-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Mencegah form submit (reload)
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                 
                 const plateInput = document.getElementById('plate_number');
                 const plateNumber = plateInput.value;
 
                 fetch('/api/entries', {
                     method: 'POST',
+<<<<<<< HEAD
                     headers: { 'Content-Type': 'application/json' },
+=======
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                     body: JSON.stringify({ plate_number: plateNumber })
                 })
                 .then(response => response.json().then(data => ({ status: response.status, body: data })))
                 .then(({ status, body }) => {
+<<<<<<< HEAD
                     if (status === 201) { 
                         showMessage(`Sukses! Tiket ${body.ticket_id} untuk ${body.plate_number} dibuat.`);
                         plateInput.value = ''; 
@@ -259,6 +311,15 @@
                         addTicketToTable(body);
                         
                     } else {
+=======
+                    if (status === 201) { // 201 Created
+                        showMessage(`Sukses! Tiket ${body.ticket_id} untuk ${body.plate_number} dibuat.`);
+                        plateInput.value = ''; // Kosongkan input
+                        // Reload halaman untuk memperbarui tabel (cara termudah)
+                        location.reload(); 
+                    } else {
+                        // Tampilkan error dari API (misal: "Parkir penuh")
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                         showMessage(body.error || 'Terjadi kesalahan.', 'error');
                     }
                 })
@@ -268,25 +329,43 @@
                 });
             });
 
+<<<<<<< HEAD
             document.getElementById('checkout-form').addEventListener('submit', function(event) {
                 event.preventDefault(); 
+=======
+            // 2. Event Listener Form Check-Out
+            document.getElementById('checkout-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Mencegah form submit (reload)
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                 
                 const ticketInput = document.getElementById('ticket_id');
                 const ticketId = ticketInput.value;
 
                 fetch('/api/exits', {
                     method: 'POST',
+<<<<<<< HEAD
                     headers: { 'Content-Type': 'application/json' },
+=======
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                     body: JSON.stringify({ ticket_id: ticketId })
                 })
                 .then(response => response.json().then(data => ({ status: response.status, body: data })))
                 .then(({ status, body }) => {
+<<<<<<< HEAD
                     if (status === 200) { 
+=======
+                    if (status === 200) { // OK
+                        // Tampilkan rincian biaya
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                         const costMessage = `Check-out sukses!
                             Plat: ${body.plate_number}
                             Durasi: ${body.duration_hours} jam
                             Total Biaya: Rp ${body.cost.toLocaleString()}`;
                         
+<<<<<<< HEAD
                         alert(costMessage); 
                         ticketInput.value = '';
                         
@@ -294,6 +373,16 @@
                         removeTicketFromTable(body.ticket_id);
 
                     } else {
+=======
+                        // Gunakan alert untuk info penting ini
+                        alert(costMessage); 
+                        
+                        // Reload halaman untuk menghapus tiket dari tabel
+                        ticketInput.value = ''; // Kosongkan input
+                        location.reload();
+                    } else {
+                        // Tampilkan error (misal: "Tiket tidak ditemukan")
+>>>>>>> 5fd9d2112f533de0a46a86cac577daa0cf477e9f
                         showMessage(body.error || 'Terjadi kesalahan.', 'error');
                     }
                 })
